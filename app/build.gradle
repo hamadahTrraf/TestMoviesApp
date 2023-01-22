@@ -1,0 +1,165 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdk 33
+
+    defaultConfig {
+        applicationId "com.example.tms_app"
+        minSdk 21
+        targetSdk 32
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        compose true
+        dataBinding true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.3.2"
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+
+    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    implementation "androidx.activity:activity-ktx:$rootProject.activityVersion"
+
+    // Dependencies for working with Architecture components
+    // You'll probably have to update the version numbers in build.gradle (Project)
+
+
+    implementation "androidx.room:room-runtime:$rootProject.room_version"
+    implementation "androidx.room:room-ktx:$rootProject.room_version"
+    annotationProcessor "androidx.room:room-compiler:$rootProject.room_version"
+
+    // To use Kotlin annotation processing tool (kapt)
+    kapt "androidx.room:room-compiler:$rootProject.room_version"
+
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
+
+    // Kotlin components
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlin_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
+
+    // UI
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+
+    // Testing
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+    androidTestImplementation ("androidx.test.espresso:espresso-core:$rootProject.espressoVersion", {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.androidxJunitVersion"
+
+    // Feature module Support
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$rootProject.nav_version"
+
+    // Testing NavigationrootProject.
+    androidTestImplementation "androidx.navigation:navigation-testing:$rootProject.nav_version"
+
+    // Jetpack Compose Integration
+    implementation "androidx.navigation:navigation-compose:$rootProject.nav_version"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$rootProject.nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$rootProject.nav_version"
+
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    // Retrofit with Scalar Converter
+    implementation "com.squareup.retrofit2:converter-scalars:2.9.0"
+
+    // Moshi
+    implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
+    implementation 'com.squareup.moshi:moshi:1.13.0'
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+
+    //***************** compose implementation below ***********************//
+    // Choose one of the following:
+    // Material Design 3.
+    implementation 'androidx.compose.material3:material3:1.0.0-rc01'
+    // or Material Design 2.
+    implementation 'androidx.compose.material:material:1.2.1'
+    // or skip Material Design and build directly on top of foundational components.
+    implementation 'androidx.compose.foundation:foundation:1.2.1'
+    // or only import the main APIs for the underlying toolkit systems,
+    // such as input and measurement/layout.
+    implementation 'androidx.compose.ui:ui:1.2.1'
+
+    // Android Studio Preview support.
+    implementation 'androidx.compose.ui:ui-tooling-preview:1.2.1'
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.2.1'
+
+    // UI Tests.
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.2.1'
+    debugImplementation 'androidx.compose.ui:ui-test-manifest:1.2.1'
+
+    // Optional - Included automatically by material, only add when you need
+    // the icons but not the material library (e.g. when using Material3 or a
+    // custom design system based on Foundation).
+    implementation 'androidx.compose.material:material-icons-core:1.2.1'
+    // Optional - Add full set of material icons.
+    implementation 'androidx.compose.material:material-icons-extended:1.2.1'
+    // Optional - Add window size utils.
+    implementation 'androidx.compose.material3:material3-window-size-class:1.0.0-rc01'
+
+    // Optional - Integration with activities.
+    implementation 'androidx.activity:activity-compose:1.5.1'
+    // Optional - Integration with ViewModels.
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
+    // Optional - Integration with LiveData.
+    implementation 'androidx.compose.runtime:runtime-livedata:1.2.1'
+    // Optional - Integration with RxJava.
+    implementation 'androidx.compose.runtime:runtime-rxjava2:1.2.1'
+    //date and time.
+    implementation 'org.jetbrains.kotlinx:kotlinx-datetime-jvm:0.4.0'
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.3")
+    //Qr-code Generator.
+    implementation 'com.google.zxing:core:3.3.2'
+    //POS SDK.
+    // compose indicator.
+    implementation("com.ehsanmsz:msz-progress-indicator:0.2.0")
+
+    implementation("io.coil-kt:coil-compose:2.0.0-rc01")
+}
